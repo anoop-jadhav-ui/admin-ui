@@ -1,0 +1,15 @@
+thead + tbody {
+  margin-top: 1rem;
+}
+
+thead tr {
+  background-color: rgb(255, 240, 237);
+}
+
+thead th {
+  padding: 0.5rem;
+}
+
+.empty-state td {
+  text-align: center;
+}

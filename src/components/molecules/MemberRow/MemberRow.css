@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+
+table td,
+table th {
+  text-align: left;
+}
+
+table td.name-row {
+  font-weight: bold;
+}
+
+tbody td {
+  padding: 0.25rem 0.5rem;
+}
+
+table tr.selected td {
+  background-color: #f0f0f0;
+}
+
+button.text {
+  background-color: transparent;
+  color: tomato;
+  padding: 0.25rem;
+}

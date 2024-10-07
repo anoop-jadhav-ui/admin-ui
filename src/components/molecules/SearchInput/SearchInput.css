@@ -1,0 +1,35 @@
+.search-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+
+  box-sizing: content-box;
+}
+
+.search-input-wrapper input {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.search-input-wrapper button {
+  position: absolute;
+  top: 50%;
+  right: 0.25rem;
+  transform: translate(0, -50%);
+
+  padding: 0;
+  border: 0;
+  color: black;
+  background-color: transparent;
+}
+
+.search-container .search-icon:hover {
+  background-color: rgb(212, 70, 44);
+}

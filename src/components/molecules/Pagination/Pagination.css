@@ -1,0 +1,33 @@
+.pagination .pages {
+  display: inline-block;
+  padding-inline: 1rem;
+}
+
+.pagination button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+
+  border-radius: 50%;
+}
+
+.pagination button.active {
+  background-color: white;
+  color: tomato;
+  border: 1px solid tomato;
+}
+
+.pagination button:hover:not(.active) {
+  background-color: #c43a22;
+}
+
+.pagination button.active:hover {
+  border-color: #c43a22;
+  background-color: #fdded9;
+}
+
+.pagination button:disabled {
+  background-color: #e3e3e3;
+  color: white;
+  cursor: not-allowed;
+}
