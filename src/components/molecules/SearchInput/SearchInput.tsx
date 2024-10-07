@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useRef } from "react";
 import { useMemberDetails } from "../../../hooks/useMemberDetails";
 import "./SearchInput.css";
 
 const SearchInput = () => {
   const { setSearchText } = useMemberDetails();
-  const [searchInputValue, setSearchInputValue] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const clearSearch = () => {
-    setSearchInputValue("");
-    setSearchText("");
+    if (searchInputRef.current && searchInputRef.current.value) {
+      searchInputRef.current.value = "";
+      setSearchText("");
+    }
   };
 
   return (
@@ -17,16 +19,15 @@ const SearchInput = () => {
         <input
           type="text"
           placeholder="Search by name, email or role"
-          value={searchInputValue}
-          onChange={(e) =>
-            setSearchInputValue((e.target as HTMLInputElement).value)
-          }
+          ref={searchInputRef}
         />
-        {searchInputValue && <button onClick={clearSearch}>X</button>}
+        {searchInputRef.current?.value && (
+          <button onClick={clearSearch}>X</button>
+        )}
       </div>
 
       <button
-        onClick={() => setSearchText(searchInputValue)}
+        onClick={() => setSearchText(searchInputRef.current?.value ?? "")}
         className="search-icon"
       >
         Search

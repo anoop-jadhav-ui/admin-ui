@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useMemberDetails } from "../../../hooks/useMemberDetails";
+import { usePagination } from "../../../hooks/usePagination";
+import { MemberDetails } from "../../../models/MemberDetails";
 import Checkbox from "../../atoms/Checkbox/Checkbox";
 import MemberRow from "../../molecules/MemberRow/MemberRow";
 import "./MembersTable.css";
-import { MemberDetails } from "../../../models/MemberDetails";
 
 const MembersTable = () => {
   const [isSelectAllChecked, setIsSelectAllChecked] = useState(false);
-  const { paginatedResponse, members, setMembers, onUpdateMember } =
-    useMemberDetails();
+  const { members, setMembers, onUpdateMember } = useMemberDetails();
+  const { paginatedResponse } = usePagination();
 
   const onMemberSelect = (member: MemberDetails) => {
     onUpdateMember({

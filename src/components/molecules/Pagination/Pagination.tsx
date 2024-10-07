@@ -1,11 +1,8 @@
-import { useMemberDetails } from "../../../hooks/useMemberDetails";
+import { usePagination } from "../../../hooks/usePagination";
 import "./Pagination.css";
 
 const Pagination = () => {
-  const { pageSize, currentPage, totalItems, setCurrentPage } =
-    useMemberDetails();
-
-  const totalPages = Math.ceil(totalItems / pageSize);
+  const { currentPage, totalPages, setCurrentPage } = usePagination();
 
   const goToFirstPage = () => {
     setCurrentPage(1);
@@ -20,7 +17,7 @@ const Pagination = () => {
   };
 
   const goToLastPage = () => {
-    setCurrentPage(Math.ceil(totalItems / pageSize));
+    setCurrentPage(totalPages);
   };
 
   const goToPage = (pageNumber: number) => {

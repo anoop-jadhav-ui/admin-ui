@@ -3,29 +3,20 @@ import { MemberDetails } from "../models/MemberDetails";
 
 interface MemberDetailsContextType {
   members: MemberDetails[];
-
-  paginatedResponse: MemberDetails[];
-  pageSize: number;
-  currentPage: number;
-  totalItems: number;
+  filteredMembers: MemberDetails[];
   searchText: string;
 
-  setCurrentPage: (currentPage: number) => void;
-  setPageSize: (pageSize: number) => void;
   setSearchText: (searchText: string) => void;
   setMembers: (members: MemberDetails[]) => void;
 
   onDeleteMember: (id: string) => void;
   onUpdateMember: (updatedMember: MemberDetails) => void;
+  onDeleteSelectedMembers: () => void;
 }
 
 const defaultValues: Partial<MemberDetailsContextType> = {
   members: [],
-
-  paginatedResponse: [],
-  pageSize: 10,
-  currentPage: 1,
-  totalItems: 0,
+  filteredMembers: [],
   searchText: "",
 };
 
@@ -38,11 +29,8 @@ export const MemberDetailsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [members, setMembers] = useState<MemberDetails[]>([]);
-
   const [searchText, setSearchText] = useState("");
+  const [members, setMembers] = useState<MemberDetails[]>([]);
 
   useEffect(() => {
     fetch(
@@ -54,7 +42,7 @@ export const MemberDetailsProvider = ({
       });
   }, []);
 
-  const filteredResponse = useMemo(() => {
+  const filteredMembers = useMemo(() => {
     if (!searchText) {
       return members;
     }
@@ -66,14 +54,13 @@ export const MemberDetailsProvider = ({
     );
   }, [members, searchText]);
 
-  const paginatedResponse = useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
-    const end = start + pageSize;
-    return filteredResponse.slice(start, end);
-  }, [filteredResponse, currentPage, pageSize]);
-
   const onDeleteMember = (id: string) => {
     const updatedMembers = members.filter((memberItem) => memberItem.id !== id);
+    setMembers(updatedMembers);
+  };
+
+  const onDeleteSelectedMembers = () => {
+    const updatedMembers = members.filter((member) => !member.isSelected);
     setMembers(updatedMembers);
   };
 
@@ -91,17 +78,13 @@ export const MemberDetailsProvider = ({
     <MemberDetailsContext.Provider
       value={{
         members,
-        paginatedResponse: paginatedResponse,
-        pageSize,
-        currentPage,
-        totalItems: filteredResponse.length,
+        filteredMembers,
         searchText,
-        setCurrentPage,
-        setPageSize,
         setSearchText,
         setMembers,
         onDeleteMember,
         onUpdateMember,
+        onDeleteSelectedMembers,
       }}
     >
       {children}

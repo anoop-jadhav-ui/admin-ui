@@ -6,8 +6,6 @@
 .search-input-wrapper {
   position: relative;
   flex: 1;
-
-  box-sizing: content-box;
 }
 
 .search-input-wrapper input {

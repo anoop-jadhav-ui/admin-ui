@@ -5,19 +5,14 @@ import Pagination from "../../molecules/Pagination/Pagination";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { members, setMembers } = useMemberDetails();
-
-  const deleteSelectedMembers = () => {
-    const updatedMembers = members.filter((member) => !member.isSelected);
-    setMembers(updatedMembers);
-  };
+  const { onDeleteSelectedMembers } = useMemberDetails();
 
   return (
     <div className="container">
       <SearchInput />
       <MembersTable />
       <footer>
-        <button className="delete-button" onClick={deleteSelectedMembers}>
+        <button className="delete-button" onClick={onDeleteSelectedMembers}>
           Delete Selected
         </button>
         <Pagination />
